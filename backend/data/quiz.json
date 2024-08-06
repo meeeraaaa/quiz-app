@@ -1,0 +1,47 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the capital of France?",
+      "options": [
+        "Paris",
+        "London",
+        "Berlin"
+      ],
+      "answer": "Paris"
+    },
+    {
+      "question": "life giving gas?",
+      "options": [
+        "nitrogen",
+        "oxygen",
+        "carbondioxide",
+        ""
+      ],
+      "answer": "oxygen"
+    },
+    {
+      "question": "how are you",
+      "options": [
+        "fine",
+        "okay",
+        "theek thek",
+        ""
+      ],
+      "answer": "meh"
+    }
+  ],
+  "results": [
+    {
+      "username": "student1",
+      "score": 0
+    },
+    {
+      "username": "student2",
+      "score": 0
+    },
+    {
+      "username": "student"
+    }
+  ]
+}

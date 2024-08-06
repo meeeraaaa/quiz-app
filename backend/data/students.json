@@ -1,0 +1,29 @@
+{
+  "students": [
+    { "username": "student1", "password": "1234", "score": 0 },
+    { "username": "student2", "password": "1234", "score": 0 },
+    { "username": "student3", "password": "1234", "score": 0 },
+    { "username": "student4", "password": "1234", "score": 0 },
+    { "username": "student5", "password": "1234", "score": 0 },
+    { "username": "student6", "password": "1234", "score": 0 },
+    { "username": "student7", "password": "1234", "score": 0 },
+    { "username": "student8", "password": "1234", "score": 0 },
+    { "username": "student9", "password": "1234", "score": 0 },
+    { "username": "student10", "password": "1234", "score": 0 },
+    { "username": "student11", "password": "1234", "score": 0 },
+    { "username": "student12", "password": "1234", "score": 0 },
+    { "username": "student13", "password": "1234", "score": 0 },
+    { "username": "student14", "password": "1234", "score": 0 },
+    { "username": "student15", "password": "1234", "score": 0 },
+    { "username": "student16", "password": "1234", "score": 0 },
+    { "username": "student17", "password": "1234", "score": 0 },
+    { "username": "student18", "password": "1234", "score": 0 },
+    { "username": "student19", "password": "1234", "score": 0 },
+    { "username": "student20", "password": "1234", "score": 0 },
+    { "username": "student21", "password": "1234", "score": 0 },
+    { "username": "student22", "password": "1234", "score": 0 },
+    { "username": "student23", "password": "1234", "score": 0 },
+    { "username": "student24", "password": "1234", "score": 0 },
+    { "username": "student25", "password": "1234", "score": 0 }
+  ]
+}
