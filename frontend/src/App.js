@@ -9,6 +9,7 @@ import ViewResults from './components/ViewResults';
 import AddQuestionForm from './components/AddQuestionForm';
 import ViewStudents from './components/ViewStudents';
 import ViewQuiz from './components/ViewQuiz';
+import './App.css'
 const App = () => {
   return (
     <Router>

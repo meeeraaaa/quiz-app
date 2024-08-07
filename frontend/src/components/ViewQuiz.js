@@ -114,11 +114,14 @@ const ViewQuiz = () => {
             <tr key={question.id}>
               <td>{question.question}</td>
               {/* <td>{question.options.join(', ')}</td> */}
-              <ul>
+              <td>
+  <ul>
     {(question.options || []).map((option, index) => (
       <li key={index}>{option}</li>
     ))}
   </ul>
+</td>
+
               <td>{question.answer}</td>
               <td>
                 <button onClick={() => deleteQuestion(question.id)}>Delete</button>

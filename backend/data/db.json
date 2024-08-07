@@ -48,17 +48,6 @@
       "answer": "Paris"
     },
     {
-      "id": 2,
-      "question": "life giving gas?",
-      "options": [
-        "nitrogen",
-        "oxygen",
-        "carbondioxide",
-        ""
-      ],
-      "answer": "oxygen"
-    },
-    {
       "id": 3,
       "question": "how are you",
       "options": [
@@ -68,17 +57,6 @@
         ""
       ],
       "answer": "meh"
-    },
-    {
-      "question": "colour",
-      "options": [
-        "black",
-        "white",
-        "grey",
-        ""
-      ],
-      "answer": "grey",
-      "id": 5
     },
     {
       "question": "dress",
@@ -103,17 +81,6 @@
       "id": 7
     },
     {
-      "question": "kya bhai",
-      "options": [
-        "kuchh bhi",
-        "faltu",
-        "bakwas",
-        "bhapp"
-      ],
-      "answer": "bhapp",
-      "id": 8
-    },
-    {
       "question": "chalo",
       "options": [
         "dekhte",
@@ -125,15 +92,37 @@
       "id": 9
     },
     {
-      "question": "body",
+      "question": "you",
       "options": [
-        "hand",
-        "feet",
-        "nose",
-        "head"
+        "are",
+        "so",
+        "awesome",
+        "re"
       ],
-      "answer": "hand",
+      "answer": "you",
       "id": 10
+    },
+    {
+      "question": "and",
+      "options": [
+        "then",
+        "there",
+        "were",
+        "none"
+      ],
+      "answer": "then",
+      "id": 11
+    },
+    {
+      "question": "oh ",
+      "options": [
+        "acchha ",
+        "aisa ",
+        "kya",
+        "hai"
+      ],
+      "answer": "aisa",
+      "id": 12
     }
   ]
 }

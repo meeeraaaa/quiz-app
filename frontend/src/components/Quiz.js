@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-  
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -14,7 +15,6 @@ const Quiz = () => {
         }
         const data = await response.json();
         setQuestions(data);
-        console.log(data)
         setAnswers(new Array(data.length).fill(''));
       } catch (error) {
         console.error('Failed to fetch questions:', error);
@@ -66,34 +66,48 @@ const Quiz = () => {
       console.error('Failed to submit quiz:', error);
     }
   };
-  
+
   return (
-    <div>
-      <h1>Quiz Time!</h1>
-      {!submitted ? (
-        <form onSubmit={handleSubmit}>
+    <div style={{ display: 'flex' }}>
+      {/* Sidebar for question navigation */}
+      <div style={{ marginRight: '20px' }}>
+        <ul>
           {questions.map((q, index) => (
-            <div key={q.id}>
-              <p>{q.question}</p>
-              {q.options.map((option, i) => (
+            <li key={q.id}>
+              <button onClick={() => setCurrentQuestionIndex(index)}>
+                Question {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Main content area for displaying the current question */}
+      <div>
+        <h1>Quiz Time!</h1>
+        {!submitted ? (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <p>{questions[currentQuestionIndex]?.question}</p>
+              {questions[currentQuestionIndex]?.options.map((option, i) => (
                 <label key={i}>
                   <input
                     type="radio"
-                    name={`question-${q.id}`}
+                    name={`question-${questions[currentQuestionIndex].id}`}
                     value={option}
-                    checked={answers[index] === option}
-                    onChange={() => handleChange(index, option)}
+                    checked={answers[currentQuestionIndex] === option}
+                    onChange={() => handleChange(currentQuestionIndex, option)}
                   />
                   {option}
                 </label>
               ))}
             </div>
-          ))}
-          <button type="submit">Submit Quiz</button>
-        </form>
-      ) : (
-        <p>Thank you for taking the quiz!</p>
-      )}
+            <button type="submit">Submit Quiz</button>
+          </form>
+        ) : (
+          <p>Thank you for taking the quiz!</p>
+        )}
+      </div>
     </div>
   );
 };
