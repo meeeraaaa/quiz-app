@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const navigate = useNavigate();
@@ -11,10 +10,9 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(credentials)
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
@@ -27,11 +25,18 @@ const Login = () => {
       const result = await response.json();
       if (result.success) {
         alert('Login successful');
+
+        // Store the username and role in localStorage
+        localStorage.setItem('username', credentials.username);
+        localStorage.setItem('role', result.role);
+
         // Redirect based on role
         if (result.role === 'student') {
-          navigate('/student-dashboard'); 
-        } else if (result === 'admin') {
+          navigate('/student-dashboard');
+        } else if (result.role === 'admin') {
           navigate('/admin-dashboard');
+        } else {
+          alert('Unknown role');
         }
       } else {
         alert(result.message || 'Login failed');
@@ -40,18 +45,29 @@ const Login = () => {
       alert('Error: ' + error.message);
     }
   };
-
   return (
     <div>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
-          <input type="text" name="username" value={credentials.username} onChange={handleChange} required />
+          <input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label>Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            required
+          />
         </div>
         <button type="submit">Login</button>
       </form>

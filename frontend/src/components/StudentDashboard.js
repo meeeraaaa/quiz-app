@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const StudentDashboard = ({ studentName }) => {
+const StudentDashboard = () => {
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Retrieve the username from localStorage
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    } else {
+      // Optionally redirect to login if username is not found
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const startQuiz = () => {
     navigate('/quiz');
@@ -10,7 +22,7 @@ const StudentDashboard = ({ studentName }) => {
 
   return (
     <div>
-      <h2>Welcome, {studentName}!</h2>
+      <h2>Welcome, {username}!</h2>
       <button onClick={startQuiz}>Start Quiz</button>
     </div>
   );

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
 const ViewResults = () => {
-  const [results, setResults] = useState([]);
+  const [students, setStudents] = useState([]);
 
-  const fetchResults = async () => {
+  const fetchStudents = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/students');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setResults(data);
+      setStudents(data);
     } catch (error) {
-      console.log('Error fetching results:', error.message);
+      console.log('Error fetching students:', error.message);
     }
   };
 
   useEffect(() => {
-    fetchResults();
+    fetchStudents();
   }, []);
 
   return (
@@ -31,7 +31,7 @@ const ViewResults = () => {
           </tr>
         </thead>
         <tbody>
-          {results.map((student, index) => (
+          {students.map((student, index) => (
             <tr key={index}>
               <td>{student.username}</td>
               <td>{student.score}</td>

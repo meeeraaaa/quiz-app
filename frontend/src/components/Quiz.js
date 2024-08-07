@@ -8,7 +8,7 @@ const Quiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/quiz/questions');
+        const response = await fetch('http://localhost:5000/api/quiz');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -35,25 +35,38 @@ const Quiz = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const username = localStorage.getItem('username'); // Assuming username is stored in localStorage
-
-      const response = await fetch('http://localhost:5000/api/quiz/submit', {
-        method: 'POST',
+      const username = localStorage.getItem('username'); 
+  
+      const formattedAnswers = questions.map((q, index) => ({
+        id: q.id,
+        answer: answers[index],
+      }));
+  
+      const score = formattedAnswers.reduce((acc, answer) => {
+        const question = questions.find(q => q.id === answer.id);
+        if (question && question.answer === answer.answer) {
+          acc += 1;
+        }
+        return acc;
+      }, 0);
+  
+      const response = await fetch(`http://localhost:5000/api/students/${username}/score`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, answers }),
+        body: JSON.stringify({ score }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       alert('Quiz submitted successfully');
       setSubmitted(true);
     } catch (error) {
       console.error('Failed to submit quiz:', error);
     }
   };
-
+  
   return (
     <div>
       <h1>Quiz Time!</h1>

@@ -7,6 +7,8 @@ import Quiz from './components/Quiz';
 import ThankYou from './components/ThankYou';
 import ViewResults from './components/ViewResults';
 import AddQuestionForm from './components/AddQuestionForm';
+import ViewStudents from './components/ViewStudents';
+import ViewQuiz from './components/ViewQuiz';
 const App = () => {
   return (
     <Router>
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/add-question" element={<AddQuestionForm />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/view-students" element={<ViewStudents />} />
+      <Route path="/view-quiz" element={<ViewQuiz />} />
       </Routes>
     </Router>
   );

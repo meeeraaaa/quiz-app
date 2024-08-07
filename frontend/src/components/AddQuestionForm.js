@@ -23,7 +23,7 @@ const AddQuestionForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/quiz/questions', {
+      const response = await fetch('http://localhost:5000/api/quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -32,25 +32,28 @@ const AddQuestionForm = () => {
           answer,
         }),
       });
+      console.log('Response status:', response.status);
 
       if (!response.ok) {
         throw new Error('Failed to add question');
       }
-
       const result = await response.json();
-      if (result.success) {
+      console.log('Response body:', result);
+      if (response.ok && result.success) {
+        console.log(response +' ho toh raha hai yaar '+result.successMessage);
         setSuccessMessage('Question successfully added');
-        // Clear form fields
         setQuestion('');
         setOptions(['', '', '', '']);
         setAnswer('');
       } else {
         setSuccessMessage('Failed to add question');
+        
       }
     } catch (error) {
+      console.error('Error:', error.message);
       setSuccessMessage('Error: ' + error.message);
     }
-  };
+  };// idont see any error in the 
 
   return (
     <div>

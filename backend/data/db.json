@@ -1,0 +1,139 @@
+{
+  "admins": [
+    {
+      "username": "admin",
+      "password": "1234",
+      "role": "admin"
+    }
+  ],
+  "students": [
+    {
+      "username": "student1",
+      "password": "1234",
+      "score": 3,
+      "role": "student"
+    },
+    {
+      "username": "student2",
+      "password": "1234",
+      "score": 3,
+      "role": "student"
+    },
+    {
+      "username": "student3",
+      "password": "1234",
+      "score": 0,
+      "role": "student"
+    },
+    {
+      "username": "student5",
+      "password": "1234",
+      "score": 0,
+      "role": "student"
+    },
+    {
+      "username": "meera",
+      "score": 0
+    }
+  ],
+  "quiz": [
+    {
+      "id": 1,
+      "question": "What is the capital of France?",
+      "options": [
+        "Paris",
+        "London",
+        "Berlin"
+      ],
+      "answer": "Paris"
+    },
+    {
+      "id": 2,
+      "question": "life giving gas?",
+      "options": [
+        "nitrogen",
+        "oxygen",
+        "carbondioxide",
+        ""
+      ],
+      "answer": "oxygen"
+    },
+    {
+      "id": 3,
+      "question": "how are you",
+      "options": [
+        "fine",
+        "okay",
+        "theek thek",
+        ""
+      ],
+      "answer": "meh"
+    },
+    {
+      "question": "colour",
+      "options": [
+        "black",
+        "white",
+        "grey",
+        ""
+      ],
+      "answer": "grey",
+      "id": 5
+    },
+    {
+      "question": "dress",
+      "options": [
+        "kurta",
+        "skirt",
+        "shirt",
+        "salwar"
+      ],
+      "answer": "skirt",
+      "id": 6
+    },
+    {
+      "question": "components",
+      "options": [
+        "air",
+        "earth",
+        "fire",
+        "wind"
+      ],
+      "answer": "fire",
+      "id": 7
+    },
+    {
+      "question": "kya bhai",
+      "options": [
+        "kuchh bhi",
+        "faltu",
+        "bakwas",
+        "bhapp"
+      ],
+      "answer": "bhapp",
+      "id": 8
+    },
+    {
+      "question": "chalo",
+      "options": [
+        "dekhte",
+        "hain",
+        "ki ",
+        "what"
+      ],
+      "answer": "ki",
+      "id": 9
+    },
+    {
+      "question": "body",
+      "options": [
+        "hand",
+        "feet",
+        "nose",
+        "head"
+      ],
+      "answer": "hand",
+      "id": 10
+    }
+  ]
+}
