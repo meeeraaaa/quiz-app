@@ -50,11 +50,18 @@ const Quiz = () => {
   const handleChange = (index, value) => {
     setAnswers((prev) => {
       const newAnswers = [...prev];
-      if (newAnswers[index] === '') setAttemptedCount((prev) => prev + 1); // Increase count when a question is attempted
+      
+      if (newAnswers[index] === '' && value !== '') {
+        console.log(`Answering question ${index + 1} for the first time.`);
+        setAttemptedCount((prevCount) => prevCount + 1);
+      }
+  
       newAnswers[index] = value;
       return newAnswers;
     });
   };
+  
+  
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -122,7 +129,7 @@ const Quiz = () => {
           <h1>Quiz Time!</h1>
           <p className="username-studentdashboard">{username}</p>
           <p className="progress-counter">
-            {attemptedCount} / {questions.length} attempted
+          {Math.ceil(attemptedCount / 2)} / {questions.length} attempted
           </p>
           <div className="time-left">
             Time left: {Math.floor(timeLeft / 1000)} seconds
@@ -159,7 +166,7 @@ const Quiz = () => {
           </form>
         ) : (
           <p className="thank-you-message">
-            Thank you for taking the quiz! You attempted {attemptedCount} out of {questions.length} questions.
+            Thank you for taking the quiz! You attempted  {Math.ceil(attemptedCount / 2)} out of {questions.length}  questions.
           </p>
         )}
       </div>
