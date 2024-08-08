@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [attemptedCount, setAttemptedCount] = useState(0); // Count of attempted questions
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { totalTime } = location.state || { totalTime: 0 };
+
+  const [timeLeft, setTimeLeft] = useState(totalTime);
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      navigate('/thank-you'); // Redirect to thank you page when time is up
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1000); // Decrease time by 1 second
+    }, 1000);
+
+    return () => clearInterval(timer); // Clean up timer on component unmount
+  }, [timeLeft, navigate]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -24,24 +45,34 @@ const Quiz = () => {
     fetchQuestions();
   }, []);
 
+  const username = localStorage.getItem('username');
+
   const handleChange = (index, value) => {
     setAnswers((prev) => {
       const newAnswers = [...prev];
+      if (newAnswers[index] === '') setAttemptedCount((prev) => prev + 1); // Increase count when a question is attempted
       newAnswers[index] = value;
       return newAnswers;
     });
   };
 
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const username = localStorage.getItem('username'); 
-  
+      const username = localStorage.getItem('username');
+      const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+
       const formattedAnswers = questions.map((q, index) => ({
         id: q.id,
         answer: answers[index],
       }));
-  
+
       const score = formattedAnswers.reduce((acc, answer) => {
         const question = questions.find(q => q.id === answer.id);
         if (question && question.answer === answer.answer) {
@@ -49,17 +80,20 @@ const Quiz = () => {
         }
         return acc;
       }, 0);
-  
+
       const response = await fetch(`http://localhost:5000/api/students/${username}/score`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Add the Authorization header with the JWT token
+        },
         body: JSON.stringify({ score }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       alert('Quiz submitted successfully');
       setSubmitted(true);
     } catch (error) {
@@ -68,44 +102,65 @@ const Quiz = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      {/* Sidebar for question navigation */}
-      <div style={{ marginRight: '20px' }}>
-        <ul>
+    <div className="quiz-container">
+      <div className="sidebar-container">
+        <ul className="question-list">
           {questions.map((q, index) => (
             <li key={q.id}>
-              <button onClick={() => setCurrentQuestionIndex(index)}>
+              <button
+                className={`question-button ${index === currentQuestionIndex ? 'active' : ''}`}
+                onClick={() => setCurrentQuestionIndex(index)}
+              >
                 Question {index + 1}
               </button>
             </li>
           ))}
         </ul>
       </div>
-
-      {/* Main content area for displaying the current question */}
-      <div>
-        <h1>Quiz Time!</h1>
+      <div className="main-content">
+        <div className="header">
+          <h1>Quiz Time!</h1>
+          <p className="username-studentdashboard">{username}</p>
+          <p className="progress-counter">
+            {attemptedCount} / {questions.length} attempted
+          </p>
+          <div className="time-left">
+            Time left: {Math.floor(timeLeft / 1000)} seconds
+          </div>
+        </div>
         {!submitted ? (
           <form onSubmit={handleSubmit}>
-            <div>
-              <p>{questions[currentQuestionIndex]?.question}</p>
+            <div className="question-container">
+              <p className="question-text">{questions[currentQuestionIndex]?.question}</p>
               {questions[currentQuestionIndex]?.options.map((option, i) => (
-                <label key={i}>
+                <label key={i} className="option-label">
                   <input
                     type="radio"
                     name={`question-${questions[currentQuestionIndex].id}`}
                     value={option}
                     checked={answers[currentQuestionIndex] === option}
                     onChange={() => handleChange(currentQuestionIndex, option)}
+                    className="option-input"
                   />
                   {option}
                 </label>
               ))}
             </div>
-            <button type="submit">Submit Quiz</button>
+
+            <div className="button-container">
+              {currentQuestionIndex < questions.length - 1 ? (
+                <button type="button" onClick={handleNextQuestion} className="next-button">
+                  Next Question
+                </button>
+              ) : (
+                <button type="submit" className="submit-button">Submit Quiz</button>
+              )}
+            </div>
           </form>
         ) : (
-          <p>Thank you for taking the quiz!</p>
+          <p className="thank-you-message">
+            Thank you for taking the quiz! You attempted {attemptedCount} out of {questions.length} questions.
+          </p>
         )}
       </div>
     </div>

@@ -16,7 +16,7 @@
     {
       "username": "student2",
       "password": "1234",
-      "score": 3,
+      "score": 0,
       "role": "student"
     },
     {
@@ -26,13 +26,11 @@
       "role": "student"
     },
     {
-      "username": "student5",
-      "password": "1234",
-      "score": 0,
-      "role": "student"
+      "username": "meera",
+      "score": 0
     },
     {
-      "username": "meera",
+      "username": "doritos",
       "score": 0
     }
   ],
@@ -43,31 +41,21 @@
       "options": [
         "Paris",
         "London",
-        "Berlin"
+        "Berlin",
+        "Amsterdam"
       ],
       "answer": "Paris"
     },
     {
-      "id": 3,
+      "id": 2,
       "question": "how are you",
       "options": [
         "fine",
         "okay",
         "theek thek",
-        ""
+        "meh"
       ],
       "answer": "meh"
-    },
-    {
-      "question": "dress",
-      "options": [
-        "kurta",
-        "skirt",
-        "shirt",
-        "salwar"
-      ],
-      "answer": "skirt",
-      "id": 6
     },
     {
       "question": "components",
@@ -78,7 +66,7 @@
         "wind"
       ],
       "answer": "fire",
-      "id": 7
+      "id": 4
     },
     {
       "question": "chalo",
@@ -89,7 +77,7 @@
         "what"
       ],
       "answer": "ki",
-      "id": 9
+      "id": 5
     },
     {
       "question": "you",
@@ -100,7 +88,7 @@
         "re"
       ],
       "answer": "you",
-      "id": 10
+      "id": 6
     },
     {
       "question": "and",
@@ -111,18 +99,18 @@
         "none"
       ],
       "answer": "then",
-      "id": 11
+      "id": 7
     },
     {
-      "question": "oh ",
+      "question": "artist",
       "options": [
-        "acchha ",
-        "aisa ",
-        "kya",
-        "hai"
+        "harry styles",
+        "tame impala",
+        "hozier",
+        "kk"
       ],
-      "answer": "aisa",
-      "id": 12
+      "answer": "tame impala",
+      "id": 9
     }
   ]
 }

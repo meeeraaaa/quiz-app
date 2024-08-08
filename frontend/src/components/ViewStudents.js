@@ -7,7 +7,16 @@ const ViewStudents = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/students');
+      const token = localStorage.getItem('token');
+
+      const response = await fetch('http://localhost:5000/api/students', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       setStudents(data);
@@ -22,9 +31,16 @@ const ViewStudents = () => {
 
   const handleDelete = async (username) => {
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch(`http://localhost:5000/api/students/${username}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       });
+
       if (!response.ok) throw new Error('Network response was not ok');
       setStudents((prev) => prev.filter((student) => student.username !== username));
     } catch (error) {
@@ -34,15 +50,21 @@ const ViewStudents = () => {
 
   const handleAddStudent = async () => {
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('http://localhost:5000/api/students', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify(newStudent),
       });
+
       if (!response.ok) throw new Error('Network response was not ok');
       const student = await response.json();
       setStudents((prev) => [...prev, student]);
-      setNewStudent({ username: '', score: 0 }); // Reset to default values
+      setNewStudent({ username: '', score: 0 });
       setShowAddStudent(false);
     } catch (error) {
       console.error('Error adding student:', error);
@@ -50,9 +72,9 @@ const ViewStudents = () => {
   };
 
   return (
-    <div>
-      <h2>Students</h2>
-      <table>
+    <div className="view-students-container">
+      <h2 className="view-students-title">Students</h2>
+      <table className="students-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -66,29 +88,33 @@ const ViewStudents = () => {
               <td>{student.username}</td>
               <td>{student.score}</td>
               <td>
-                <button onClick={() => handleDelete(student.username)}>Delete</button>
+                <button className="delete-button" onClick={() => handleDelete(student.username)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={() => setShowAddStudent(!showAddStudent)}>Add New Student</button>
+      <button className="toggle-add-student-button" onClick={() => setShowAddStudent(!showAddStudent)}>
+        {showAddStudent ? 'Cancel' : 'Add New Student'}
+      </button>
       {showAddStudent && (
-        <div>
-          <h3>Add Student</h3>
+        <div className="add-student-form">
+          <h3 className="add-student-title">Add Student</h3>
           <input
+            className="student-input"
             type="text"
             value={newStudent.username}
             onChange={(e) => setNewStudent({ ...newStudent, username: e.target.value })}
             placeholder="Username"
           />
           <input
+            className="student-input"
             type="number"
             value={newStudent.score}
             onChange={(e) => setNewStudent({ ...newStudent, score: parseInt(e.target.value, 10) || 0 })}
             placeholder="Score"
           />
-          <button onClick={handleAddStudent}>Add</button>
+          <button className="add-student-button" onClick={handleAddStudent}>Add</button>
         </div>
       )}
     </div>

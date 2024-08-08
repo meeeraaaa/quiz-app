@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';  // Correct import
+
+import '../App.css';  // Importing your CSS for styling
+
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const navigate = useNavigate();
@@ -23,17 +27,19 @@ const Login = () => {
       }
 
       const result = await response.json();
-      if (result.success) {
-        alert('Login successful');
-
-        // Store the username and role in localStorage
+      if (result.token) {
+        // Store the JWT token in localStorage
+        localStorage.setItem('token', result.token);
         localStorage.setItem('username', credentials.username);
-        localStorage.setItem('role', result.role);
+
+        // Decode the token to get role
+        const decoded = jwtDecode(result.token);  // Correct usage of jwt-decode
+        localStorage.setItem('role', decoded.role);
 
         // Redirect based on role
-        if (result.role === 'student') {
+        if (decoded.role === 'student') {
           navigate('/student-dashboard');
-        } else if (result.role === 'admin') {
+        } else if (decoded.role === 'admin') {
           navigate('/admin-dashboard');
         } else {
           alert('Unknown role');
@@ -45,13 +51,15 @@ const Login = () => {
       alert('Error: ' + error.message);
     }
   };
+
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
+    <div className="login-container">
+      <form className="form-container" onSubmit={handleSubmit}>
+        <h2 className="login-title">Login</h2>
+        <div className="form-group">
+          <label className="form-label">Username</label>
           <input
+            className="form-input"
             type="text"
             name="username"
             value={credentials.username}
@@ -59,9 +67,10 @@ const Login = () => {
             required
           />
         </div>
-        <div>
-          <label>Password</label>
+        <div className="form-group">
+          <label className="form-label">Password</label>
           <input
+            className="form-input"
             type="password"
             name="password"
             value={credentials.password}
@@ -69,7 +78,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button className="login-button" type="submit">Login</button>
       </form>
     </div>
   );

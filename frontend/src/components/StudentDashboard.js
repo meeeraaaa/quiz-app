@@ -17,13 +17,21 @@ const StudentDashboard = () => {
   }, [navigate]);
 
   const startQuiz = () => {
-    navigate('/quiz');
+    // Assuming you have a way to get the number of questions
+    const numberOfQuestions = 10; // Replace this with the actual number of questions
+    const totalTime = 45 * numberOfQuestions * 1000; // Total time in milliseconds
+
+    navigate('/quiz', { state: { totalTime } });
   };
 
   return (
-    <div>
-      <h2>Welcome, {username}!</h2>
-      <button onClick={startQuiz}>Start Quiz</button>
+    <div className="student-dashboard-container">
+      <header className="student-dashboard-header">
+        Welcome, {username}!
+      </header>
+      <div className="student-dashboard">
+        <button className="start-quiz-button" onClick={startQuiz}>Start Quiz</button>
+      </div>
     </div>
   );
 };
