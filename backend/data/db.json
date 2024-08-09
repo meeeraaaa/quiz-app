@@ -10,7 +10,7 @@
     {
       "username": "student1",
       "password": "1234",
-      "score": 2,
+      "score": 1,
       "role": "student"
     },
     {
@@ -32,6 +32,18 @@
     {
       "username": "doritos",
       "score": 0
+    },
+    {
+      "username": "neel",
+      "score": 0
+    },
+    {
+      "username": "student4",
+      "score": 0
+    },
+    {
+      "username": "ananya",
+      "score": 0
     }
   ],
   "quiz": [
@@ -47,70 +59,48 @@
       "answer": "Paris"
     },
     {
-      "id": 2,
-      "question": "how are you",
+      "question": "What is the third colour of the rainbow?",
       "options": [
-        "fine",
-        "okay",
-        "theek thek",
-        "meh"
+        "yellow",
+        "red",
+        "blue",
+        "orange"
       ],
-      "answer": "meh"
+      "answer": "blue",
+      "id": 2
     },
     {
-      "question": "components",
+      "question": "What is the formula of water?",
       "options": [
-        "air",
-        "earth",
-        "fire",
-        "wind"
+        "H2O",
+        "HO",
+        "H2O2",
+        "HO2"
       ],
-      "answer": "fire",
+      "answer": "H2O",
+      "id": 3
+    },
+    {
+      "question": "When do we celebrate gandhi jayanti?",
+      "options": [
+        "15th August",
+        "9th September",
+        "2nd October",
+        "4th April"
+      ],
+      "answer": "2nd October",
       "id": 4
     },
     {
-      "question": "chalo",
+      "question": "How many states are there in the United States of America?",
       "options": [
-        "dekhte",
-        "hain",
-        "ki ",
-        "what"
+        "29",
+        "52",
+        "48",
+        "50"
       ],
-      "answer": "ki",
+      "answer": "50",
       "id": 5
-    },
-    {
-      "question": "you",
-      "options": [
-        "are",
-        "so",
-        "awesome",
-        "re"
-      ],
-      "answer": "you",
-      "id": 6
-    },
-    {
-      "question": "and",
-      "options": [
-        "then",
-        "there",
-        "were",
-        "none"
-      ],
-      "answer": "then",
-      "id": 7
-    },
-    {
-      "question": "artist",
-      "options": [
-        "harry styles",
-        "tame impala",
-        "hozier",
-        "kk"
-      ],
-      "answer": "tame impala",
-      "id": 9
     }
   ]
 }

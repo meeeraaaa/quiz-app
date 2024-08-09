@@ -11,17 +11,16 @@ const Quiz = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalTime } = location.state || { totalTime: 0 };
-
   const [timeLeft, setTimeLeft] = useState(totalTime);
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      navigate('/thank-you'); // Redirect to thank you page when time is up
+      navigate('/thankyou'); // thank you page when time is up
       return;
     }
 
     const timer = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1000); // Decrease time by 1 second
+      setTimeLeft((prevTime) => prevTime - 1000); // decrease time by 1 sec
     }, 1000);
 
     return () => clearInterval(timer); // Clean up timer on component unmount
@@ -52,7 +51,6 @@ const Quiz = () => {
       const newAnswers = [...prev];
       
       if (newAnswers[index] === '' && value !== '') {
-        console.log(`Answering question ${index + 1} for the first time.`);
         setAttemptedCount((prevCount) => prevCount + 1);
       }
   
@@ -61,8 +59,6 @@ const Quiz = () => {
     });
   };
   
-  
-
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -72,7 +68,6 @@ const Quiz = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const username = localStorage.getItem('username');
       const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
 
       const formattedAnswers = questions.map((q, index) => ({
@@ -92,7 +87,7 @@ const Quiz = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Add the Authorization header with the JWT token
+          'Authorization': `Bearer ${token}`, // Authorization header with the JWT token
         },
         body: JSON.stringify({ score }),
       });
@@ -101,8 +96,9 @@ const Quiz = () => {
         throw new Error('Network response was not ok');
       }
 
-      alert('Quiz submitted successfully');
       setSubmitted(true);
+      alert('Quiz submitted successfully');
+      navigate('/thankyou'); 
     } catch (error) {
       console.error('Failed to submit quiz:', error);
     }
@@ -129,44 +125,47 @@ const Quiz = () => {
           <h1>Quiz Time!</h1>
           <p className="username-studentdashboard">{username}</p>
           <p className="progress-counter">
-          {Math.ceil(attemptedCount / 2)} / {questions.length} attempted
+            {Math.ceil(attemptedCount / 2)} / {questions.length} attempted
           </p>
           <div className="time-left">
             Time left: {Math.floor(timeLeft / 1000)} seconds
           </div>
         </div>
-        {!submitted ? (
-          <form onSubmit={handleSubmit}>
-            <div className="question-container">
-              <p className="question-text">{questions[currentQuestionIndex]?.question}</p>
-              {questions[currentQuestionIndex]?.options.map((option, i) => (
-                <label key={i} className="option-label">
-                  <input
-                    type="radio"
-                    name={`question-${questions[currentQuestionIndex].id}`}
-                    value={option}
-                    checked={answers[currentQuestionIndex] === option}
-                    onChange={() => handleChange(currentQuestionIndex, option)}
-                    className="option-input"
-                  />
-                  {option}
-                </label>
-              ))}
-            </div>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="question-container">
+            <p className="question-text">{questions[currentQuestionIndex]?.question}</p>
+            {questions[currentQuestionIndex]?.options.map((option, i) => (
+              <label key={i} className="option-label">
+                <input
+                  type="radio"
+                  name={`question-${questions[currentQuestionIndex].id}`}
+                  value={option}
+                  checked={answers[currentQuestionIndex] === option}
+                  onChange={() => handleChange(currentQuestionIndex, option)}
+                  className="option-input"
+                />
+                {option}
+              </label>
+            ))}
+          </div>
 
-            <div className="button-container">
-              {currentQuestionIndex < questions.length - 1 ? (
-                <button type="button" onClick={handleNextQuestion} className="next-button">
-                  Next Question
-                </button>
-              ) : (
-                <button type="submit" className="submit-button">Submit Quiz</button>
-              )}
-            </div>
-          </form>
-        ) : (
+          <div className="button-container">
+            <button type="button" onClick={handleNextQuestion} className="next-button">
+              Next Question
+            </button>
+          </div>
+        </form>
+
+        <div className="submit-container">
+          <button onClick={handleSubmit} className="submit-button">
+            Submit Quiz
+          </button>
+        </div>
+        
+        {submitted && (
           <p className="thank-you-message">
-            Thank you for taking the quiz! You attempted  {Math.ceil(attemptedCount / 2)} out of {questions.length}  questions.
+            Thank you for taking the quiz! You attempted {Math.ceil(attemptedCount / 2)} out of {questions.length} questions.
           </p>
         )}
       </div>

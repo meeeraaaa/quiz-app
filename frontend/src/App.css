@@ -481,3 +481,21 @@ margin-right: 10px;
   padding-top: 80px; /* Adjust content padding to avoid overlap with fixed header */
 }
 
+.submit-container{
+  position: fixed;
+  right:50px;
+  bottom:100px;
+}
+
+.thank-you-message{
+  background-color: aliceblue;
+  width: 350px;
+  height: 300px;
+  font-size: 45px;
+  border:2.5px solid #011341;
+  box-shadow: 5px 5px 10px  #01161E;
+  border-radius: 15%;
+  padding: 10px;
+  padding-top: 20px;
+  margin-left: 30%;
+}

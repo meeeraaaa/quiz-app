@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
-  const [newStudent, setNewStudent] = useState({ username: '', score: 0 });
+  const [newStudent, setNewStudent] = useState({ username: '', score: 0, password: '', role: 'student' });
   const [showAddStudent, setShowAddStudent] = useState(false);
 
   const fetchStudents = async () => {
@@ -64,7 +64,8 @@ const ViewStudents = () => {
       if (!response.ok) throw new Error('Network response was not ok');
       const student = await response.json();
       setStudents((prev) => [...prev, student]);
-      setNewStudent({ username: '', score: 0 });
+      // Reset the newStudent state with default values
+      setNewStudent({ username: '', score: 0, password: '', role: 'student' });
       setShowAddStudent(false);
     } catch (error) {
       console.error('Error adding student:', error);
@@ -114,6 +115,21 @@ const ViewStudents = () => {
             onChange={(e) => setNewStudent({ ...newStudent, score: parseInt(e.target.value, 10) || 0 })}
             placeholder="Score"
           />
+          <input
+            className="student-input"
+            type="password"
+            value={newStudent.password}
+            onChange={(e) => setNewStudent({ ...newStudent, password: e.target.value })}
+            placeholder="Password"
+          />
+          <select
+            className="student-input"
+            value={newStudent.role}
+            onChange={(e) => setNewStudent({ ...newStudent, role: e.target.value })}
+          >
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </select>
           <button className="add-student-button" onClick={handleAddStudent}>Add</button>
         </div>
       )}
